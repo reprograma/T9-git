@@ -94,7 +94,7 @@ Passo a passo para Pull Request:
 5. Confirme a criação de sua solicitação.
 
 Passo a passo para aceitar o Pull Request:
-*(em construção)*
+*Não fiz a vida vai ensinar isso a vocês. Olhem no vídeo da aula.*
 
 Fonte: 
 * https://medium.com/@tharis63/git-fork-vs-git-clone-8aad0c0e38c0
