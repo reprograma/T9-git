@@ -97,8 +97,8 @@ Passo a passo para aceitar o Pull Request:
 *(em construção)*
 
 Fonte: 
-https://medium.com/@tharis63/git-fork-vs-git-clone-8aad0c0e38c0
-https://github.com/grupy-sp/encontros/wiki/Como-sincronizar-o-seu-Fork-com-o-repo-principal
+* https://medium.com/@tharis63/git-fork-vs-git-clone-8aad0c0e38c0
+* https://github.com/grupy-sp/encontros/wiki/Como-sincronizar-o-seu-Fork-com-o-repo-principal
 
 ## Branches
 
