@@ -53,3 +53,42 @@ No entanto, *git add* não afeta realmente o repositório de nenhuma forma signi
     *git commit -m "mensagem"* - Um comando de atalho que cria de imediato um commit com uma mensagem de commit transmitida. Transmitir a opção -m vai pular a solicitação do editor de texto em favor de uma mensagem integrada.
 
 Coloque uma mensagem que defina exatamente o que você fez. De preferência, a cada pequena parte que você codar, comite com uma mensagem que diga o que está sendo feito até ali.
+
+Fontes: 
+* https://rogerdudler.github.io/git-guide/index.pt_BR.html
+* https://www.atlassian.com/br/git/tutorials
+* https://blog.da2k.com.br/2015/02/04/git-e-github-do-clone-ao-pull-request/
+
+## Fork
+
+Cria uma cópia do repositório principal de um código-fonte do projeto em seu perfil do GitHub. Assim, você pode modificar o projeto sem afetar o repositório principal desse projeto.
+O fork é usado principalmente para indicar ou propor alterações no projeto de origem ou criar uma nova ideia usando essa fonte de projeto como ponto de partida.
+	
+Por que precisamos de Fork?
+* Você pode não ter permissão de gravação para trabalhar diretamente no repositório principal.
+* Se todos clonarem e trabalharem diretamente no repositório/branch principal do projeto, será muito difícil de gerenciar.
+
+Passo a passo:
+1. Acesse o repositório fornecido por mim e clique no botão **Fork**;
+2. Faça um *git clone* (siga o passo a passo da seção anterior) do repositório que você "forkou";
+3. Adicione alguns arquivos ao repositório local, confirme e envie suas alterações.
+
+As alterações que você fez não serão replicadas para o repositório remoto original. Além disso, se um contribuidor com acesso ao repositório remoto principal fizer uma atualização um simples *git pull* não irá atualizar seu repositório local nem seu repositório remoto. Para atualizar o seu projeto com as alterações do repositório remoto original segue um passo a passo.
+
+Passo a passo:
+
+1. Acesse seu repositório local utilizando o terminal;
+2. Utilize o comando *git remote -v* para verificar quais repositórios remotos estão ligados ao seu repositório local. As linhas que contém o seu repositório remoto devem estar iniciadas pela palavra *origin*. As linhas que contém o repositório remoto original devem estar iniciadas pela palavra *upstream*. No caso do repositório remoto você pode se deparar com três situações: (1) o repositório remoto original está correto, passe para o passo 5; (2) não há um repositório "marcado" como *upstream*, é preciso indicar o repositório remoto original, siga para o passo 4; (3) existe um repositório "marcado" como *upstream* entretanto o endereço não corresponde ao repositório remoto original, siga para o passo 3;
+3. Antes de indicar o repositório remoto original correto, é necessário excluir a ligação com o repositório remoto incorreto. Utilize o comando *git remote rm upstream*. rm nesse comando quer dizer remove. Utilize novamente o comando *git remote -v* para verificar se o comando funcionou corretamente;
+4. Agora vamos adicionar um novo repositório remoto, para isso vamos utilizar um comando já conhecido. Utilize *git remote add origin enderecodorepositorio*, onde o endereço do repositório deve ser a url para clone do repositório original. Utilize novamente o comando *git remote -v* para verificar se o comando funcionou corretamente;
+5. Para obter as atualizações do repositório remoto original, utilize o comando *git fetch upstream* e em seguida *git pull upstream*;
+6. Até esse ponto seu repositório local já deve estar atualizado com as alterações do repositório remoto original, utilize os comandos já aprendidos na seção anterior para enviar as atualizações para seu repositório remoto.
+
+Caso deseje enviar suas alterações para o repositório principal crie uma solicitação de atualização (pull request) para o repositório principal. Se o(s) proprietário(s) do repositório principal desejarem, eles mesclarão suas alterações ao repositório principal. Essa função é muito utilizada em projetos de código aberto em que todos podem contribuir. Por exemplo, alguém desenvolve um plugin e outras pessoas podem ajudar traduzindo arquivos, corrigindo problemas ou adicionando novas funcionalidades; no entanto, ao invés de essas alteração serem enviadas diretamente ao repositório, quem contribuiu solicita que o proprietário aceite suas alterações; o proprietário por sua vez decide se quer que essas modificações feitas por terceiros sejam incorporadas ao seu projeto.
+	
+Passo a passo:
+1. Acesse o seu repositório "forkado";
+2. Clique no botão Compare & Pull Request;
+3. Adicione um título a sua solicitação;
+4. Adicione um comentário se necessário, esse comentário pode ser um descritivo de sua alteração e/ou uma justificativa da necessidade dela;
+5. Confirme a criação de sua solicitação.
