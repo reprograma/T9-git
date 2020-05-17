@@ -84,11 +84,82 @@ Passo a passo:
 5. Para obter as atualizações do repositório remoto original, utilize o comando *git fetch upstream* e em seguida *git pull upstream*;
 6. Até esse ponto seu repositório local já deve estar atualizado com as alterações do repositório remoto original, utilize os comandos já aprendidos na seção anterior para enviar as atualizações para seu repositório remoto.
 
-Caso deseje enviar suas alterações para o repositório principal crie uma solicitação de atualização (pull request) para o repositório principal. Se o(s) proprietário(s) do repositório principal desejarem, eles mesclarão suas alterações ao repositório principal. Essa função é muito utilizada em projetos de código aberto em que todos podem contribuir. Por exemplo, alguém desenvolve um plugin e outras pessoas podem ajudar traduzindo arquivos, corrigindo problemas ou adicionando novas funcionalidades; no entanto, ao invés de essas alteração serem enviadas diretamente ao repositório, quem contribuiu solicita que o proprietário aceite suas alterações; o proprietário por sua vez decide se quer que essas modificações feitas por terceiros sejam incorporadas ao seu projeto.
-	
-Passo a passo:
+Caso deseje enviar suas alterações para o repositório principal crie uma solicitação de atualização (pull request) para o repositório principal. Se o(s) proprietário(s) do repositório principal desejarem, eles mesclarão suas alterações ao repositório principal. Essa função é muito utilizada em projetos de código aberto em que todos podem contribuir. Por exemplo, alguém desenvolve um plugin e outras pessoas podem ajudar traduzindo arquivos, corrigindo problemas ou adicionando novas funcionalidades; no entanto, ao invés de essas alteração serem enviadas diretamente ao repositório, quem contribuiu solicita que o proprietário aceite suas alterações; o proprietário por sua vez decide se quer que essas modificações feitas por terceiros sejam incorporadas ao seu projeto. 
+
+Passo a passo para Pull Request:
 1. Acesse o seu repositório "forkado";
-2. Clique no botão Compare & Pull Request;
+2. Clique no botão **Compare & Pull Request**;
 3. Adicione um título a sua solicitação;
 4. Adicione um comentário se necessário, esse comentário pode ser um descritivo de sua alteração e/ou uma justificativa da necessidade dela;
 5. Confirme a criação de sua solicitação.
+
+Passo a passo para aceitar o Pull Request:
+*(em construção)*
+
+Fonte: 
+https://medium.com/@tharis63/git-fork-vs-git-clone-8aad0c0e38c0
+https://github.com/grupy-sp/encontros/wiki/Como-sincronizar-o-seu-Fork-com-o-repo-principal
+
+## Branches
+
+Branches ("ramos") são utilizados para desenvolver funcionalidades isoladas umas das outras. A branch master é a branch "padrão" quando você cria um repositório. Use outras branches para desenvolver e mescle-os (merge) ao branch master após a conclusão. Uma branch permite que várias pessoas trabalhem em um mesmo repositório em funcionalidades que não se relacionam uma com a outra. Ao finalizar as alterações, a branch criada pode ser reintegrada a branch principal (master).
+
+O comando *git branch* permite criar, listar, renomear e excluir ramificações. Ele não permite que você alterne entre as ramificações ou reúna uma história bifurcada novamente. Por esse motivo, o comando *git branch* é comumente integrado com os comandos *git checkout* e *git merge*.
+
+    *git branch <branch>* - Criar uma nova ramificação chamada <branch>. Isso não verifica a nova ramificação.
+
+    *git branch -D <branch>* - Excluir localmente uma ramificação chamada <branch>.
+
+    *git push origin --delete <branch>* - Excluir remotamente uma ramificação chamada <branch>.
+
+O comando *git checkout* permite navegar entre branches criados pelo *git branch*. O comando *git checkout* pode, às vezes, ser confundido com o *git clone*. A diferença entre os dois é que o clone trabalha para buscar código de um repositório remoto, já o checkout serve para alternar entre versões de código já existentes no repositório local (sua máquina).
+
+    *git checkout <branch>* - O comando seleciona a ramificação <branch> a ser trabalhada.
+
+    *git checkout -b <new-branch>* - Cria e alterna para <new branch> ao mesmo tempo. A opção -b é uma sinalização de conveniência que diz ao Git para rodar o *git branch <new-branch>* antes de rodar o *git checkout <new-branch>*.
+
+Ao colaborar com uma equipe, é comum utilizar repositórios remotos. Esses repositórios podem ser hospedados e compartilhados ou podem ser uma cópia local de outro colega. Para verificar um branch remoto, você precisa primeiro buscar o conteúdo do branch.
+
+    *git fetch --all* - Atualiza a lista local de branches.
+
+    *git checkout <remotebranch> origin/<remotebranch>* - Em versões mais antigas do Git para alternar para uma branch remota você deve usar este comando, onde <remotebranch> é o nome da branch. Em versões mais novas você pode simplesmente utilizar *git checkout <remotebranch>*.
+
+A mesclagem é o jeito do Git de unificar diferentes linhas de desenvolvimento (branches). O comando *git merge* permite que você pegue as linhas de desenvolvimento independentes criadas pelo *git branch* e as integre em um único branch.
+
+Vamos supor que temos um novo recurso de branch que é baseado na branch principal. Agora, a gente quer mesclar este recurso no branch principal.
+
+![](https://wac-cdn.atlassian.com/dam/jcr:86eba9ec-9391-45ea-800a-948cec1f2ed7/Branch-2.png?cdnVersion=1017)
+
+Executar este comando vai mesclar o recurso de branch especificado no branch atual, vamos supor que seja a principal.
+
+![](https://wac-cdn.atlassian.com/dam/jcr:83323200-3c57-4c29-9b7e-e67e98745427/Branch-1.png?cdnVersion=1017)
+
+Passo a passo (considere um projeto para um aplicativo de câmera em que cada desenvolvedor trabalha numa funcionalidade diferente):
+
+1. *git checkout -b feature-focus* (Cria nova ramificação chamada feature-focus e seleciona ela para trabalhar);
+2. Vamos fazer algumas alterações:
+    1. *git add <file>*
+    2. *git commit -m "Adicionando foco manual"*
+3. Vamos fazer mais algumas alterações:
+    1. *git add <file>*
+    2. *git commit -m "Adicionando foco automático"*
+4. Você concluiu a funcionalidade que você estava desenvolvendo, e não há mais necessidade de utilizar essa branch.
+    1. *git checkout master* (alternando para a branch principal, a master);
+    2. *git merge feature-focus* (mesclando as alterações da branch que você desenvolveu à master);
+    3. *git branch -d feature-focus* (excluindo a branch que você desenvolveu)
+
+O passo a passo acima, foi feito considerando uma branch que só existia localmente. Se você quiser enviar sua branch para o repositório remoto não se esqueça de usar os comandos que informam qual a origem remota do seu repositório, bem como *git push -u origin <suabranch>* na primeira vez que fizer um push.
+
+Se as duas ramificações que você está tentando mesclar alterarem a mesma parte do mesmo arquivo, o Git pode não conseguir decidir qual versão usar. Quando essa situação ocorre, ele para antes do commit de mesclagem para que você possa resolver os conflitos.
+
+Quando você encontra um conflito de mesclagem, executar o comando *git status* vai exibir quais arquivos precisam ser resolvidos. O Git vai editar o conteúdo dos arquivos afetados com indicações visuais, marcando ambos os lados do conteúdo em conflito. Estas marcações visuais são: <<<<<<<, =======, e >>>>>>>. É útil pesquisar um projeto por estes indicadores durante uma mesclagem para encontrar onde conflitos precisam ser resolvidos. (Veja o exemplo abaixo)
+
+    aqui está um conteúdo não afetado pelo conflito
+    <<<<<<< master
+    aqui está um texto conflitante do branch principal
+    =======
+    aqui está um texto conflitante da branch de recurso
+
+Em geral, o conteúdo antes do marcador ======= é o branch receptor e a parte seguinte é o branch que vai ser mesclado.
+
+Após identificar as seções conflitantes, você pode corrigir a mesclagem como preferir. Quando você estiver pronto para concluir a mesclagem, tudo o que precisa fazer é executar *git add* no(s) arquivo(s) conflitante(s) para dizer ao Git que eles foram resolvidos. Em seguida, você executa um *git commit* normal para gerar o commit de mesclagem.
